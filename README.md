@@ -1,2 +1,3 @@
-# fish
-my config
+# fish for all
+
+my new config
