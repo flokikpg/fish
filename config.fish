@@ -104,6 +104,23 @@ end
 bind ! __history_previous_command
 bind '$' __history_previous_command_aurguments
 
+# Yazi fm
+function y
+    set -l tmp (mktemp -t yazi-cwd.XXXXXX)
+
+    command yazi $argv --cwd-file="$tmp"
+
+    if test -s "$tmp"
+        set -l cwd (cat "$tmp")
+        if test -n "$cwd"; and test "$cwd" != "$PWD"
+            cd "$cwd"
+        end
+    end
+
+    rm -f "$tmp"
+end
+
+
 # Aliases
 alias ..='cd ..'
 alias vim='nvim'
@@ -114,5 +131,5 @@ alias ll='eza -l --color=always --group-directories-first'  # long format
 alias hypr='nvim ~/.config/hypr/hyprland.conf'
 alias update='doas pacman -Syu'
 alias d='doas pacman -S'
-alias y='yay -S'
+alias i='yay -S'
 
